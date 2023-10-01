@@ -1,0 +1,31 @@
+import scala.io.StdIn._
+
+object GradeCalculator {
+  def main(args: Array[String]): Unit = {
+    println("Enter student grades (Enter after each grade, type -1 to finish):")
+
+    var grades = List[Int]() // List to store student grades
+    var grade = 0
+
+    // Loop to receive grades from the user
+    while (grade != -1) {
+      grade = readInt()
+      if (grade >= 0 && grade <= 100) {
+        grades = grades :+ grade
+      } else if (grade != -1) {
+        println("Invalid grade! Please enter a grade between 0 and 100.")
+      }
+    }
+
+    // Calculate the average grade
+    val averageGrade = if (grades.nonEmpty) grades.sum.toDouble / grades.length.toDouble else 0
+
+    // Separate passing and failing grades into different lists
+    val passGrades = grades.filter(_ >= 50)
+    val failGrades = grades.filter(_ < 50)
+
+    println(s"Average Grade: $averageGrade")
+    println(s"Passing Grades: ${passGrades.mkString(", ")}")
+    println(s"Failing Grades: ${failGrades.mkString(", ")}")
+  }
+}
